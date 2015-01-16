@@ -21,7 +21,8 @@ SETTINGS = {
     'image-types': ['.png', '.jpg', '.gif', '.jpeg'],
 
     'mimetypes': {
-        'ogg': 'audio/ogg'
+        'ogg': 'audio/ogg',
+        'mp3': 'audio/mp3'
     }
 }
 
