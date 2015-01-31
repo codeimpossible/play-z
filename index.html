@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Play-Z: a demo ImpactJS Game</title>
+	<title>Play-Z a zombie-horde survival game</title>
+	<link href='//fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+
+	<meta property="og:image" content="//dl.dropboxusercontent.com/u/6291954/liquid-zombie2.gif"/>
+	<meta property="og:site_name" content="Play-Z a zombie-horde survival game by Jared Barboza"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:title" content="Play-Z"/>
+	<meta property="og:url" content="http://codeimpossible.com/play-z"/>
+	<meta property="og:description" content="A game I made for #1GAM, survive wave after wave of zombie attackers!"/>
+
+	<meta itemprop="name" content="Play-Z"/>
+	<meta itemprop="url" content="http://codeimpossible.com/play-z"/>
+	<meta itemprop="description" content="A game I made for #1GAM, survive wave after wave of zombie attackers!"/>
+
+	<meta itemprop="thumbnailUrl" content="//dl.dropboxusercontent.com/u/6291954/liquid-zombie2.gif"/>
+	<link rel="image_src" href="//dl.dropboxusercontent.com/u/6291954/liquid-zombie2.gif" />
+	<meta itemprop="image" content="//dl.dropboxusercontent.com/u/6291954/liquid-zombie2.gif"/>
+	<meta name="author" content="Jared Barboza">
+	<meta name="description" content="A game I made for #1GAM, survive wave after wave of zombie attackers!" />
+
+	<meta HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">
 		html,body {
 			background-color: #333;
@@ -12,35 +32,167 @@
 			font-size: 12pt;
 		}
 
-		#canvas {
+		canvas {
+			box-shadow: 11px 8px 17px #222;
+		}
+
+		h2 {
+			font-family: 'Bangers', cursive;
+			font-size: 64px;
+			margin-bottom: 0px;
+		}
+
+		.content {
 			position: absolute;
 			left: 0;
 			right: 0;
 			top: 0;
 			bottom: 0;
 			margin: auto;
+			width: 640px;
 		}
 
-		.instructions {
+		.legend div .icon {
+			background-size: cover;
+		}
+
+		.group {
+			margin-bottom: 20px;
+		}
+
+		.group div {
+			float: left;
+		}
+
+		.group:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.bigboy .icon {
+			background: transparent url(media/big-boy.png) 0 0 no-repeat;
+			height: 96px;
+			width: 96px;
+		}
+
+		.bigboy .description {
+			padding-top: 48px;
+		}
+
+		.zombie .icon {
+			background: transparent url(media/zombie.png) 0 0 no-repeat;
+			height: 64px;
+			width: 64px;
+			margin-right: 32px;
+		}
+
+		.zombie .description {
+			padding-top: 16px;
+		}
+
+		.bat .icon {
+			background: transparent url(media/bat.png) 0 0 no-repeat;
+			height: 48px;
+			width: 48px;
+			margin-right: 48px;
+		}
+
+		.bat .description {
+			padding-top: 8px;
+		}
+
+		header, .instructions {
 			text-align: center;
+		}
+
+		.key {
+			display: inline-block;
+			color: #444;
+			font: bold 9pt arial;
+			text-decoration: none;
+			text-align: center;
+			width: 44px;
+			height: 41px;
+			margin: 5px;
+			background: #eff0f2;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			border-top: 1px solid #f5f5f5;
+			-webkit-box-shadow:
+			inset 0 0 25px #e8e8e8,
+			0 1px 0 #c3c3c3,
+			0 2px 0 #c9c9c9,
+			0 2px 3px #333;
+			-moz-box-shadow:
+			inset 0 0 25px #e8e8e8,
+			0 1px 0 #c3c3c3,
+			0 2px 0 #c9c9c9,
+			0 2px 3px #333;
+			box-shadow:
+			inset 0 0 25px #e8e8e8,
+			0 1px 0 #c3c3c3,
+			0 2px 0 #c9c9c9,
+			0 2px 3px #333;
+			text-shadow: 0px 1px 0px #f5f5f5;
+		}
+
+		.key code {
+			display: block;
+			margin: 13px 0 0;
+			text-transform: uppercase;
+			font-size: 14px;
+		}
+
+		.key.space {
+			width: 100px;
 		}
 	</style>
 
 	<script type="text/javascript" src="game.min.js"></script>
 </head>
 <body>
-	<canvas id="canvas"></canvas>
-	<div class="instructions">
-		<h2>
-			Play-Z.
-		</h2>
-		<h4>
-			Survive the zombie horde.
-		</h4>
-		<p>
-			arrow keys move, <code>X</code> changes weapons, <code>C</code> shoots, <code>SPACE</code> dodges enemies.
-		</p>
+
+	<div class="content">
+		<header>
+			<h2>
+				Play-Z
+			</h2>
+			<h4>
+				Survive the zombie horde.
+			</h4>
+		</header>
+
+		<canvas id="canvas"></canvas>
+
+		<div class="instructions">
+			<p>
+				<span class="key"><code>←</code></span><span class="key"><code>↑</code></span><span class="key"><code>↓</code></span><span class="key"><code>→</code></span> move you, <span class="key"><code>X</code></span> changes weapons, <span class="key"><code>C</code></span> shoots, <span class="key space"><code>SPACE</code></span> dodges enemies.
+			</p>
+		</div>
+
+		<div class="legend group">
+			<div class="bigboy group">
+				<div class="icon"></div>
+				<div class="description">
+					<em><strong>Big Boy</strong></em>: big, slow(er). Bullet sponge. Be careful.
+				</div>
+			</div>
+			<div class="zombie group">
+				<div class="icon"></div>
+				<div class="description">
+					<em><strong>Zombie</strong></em>: Mobile but dumb. Mostly cannon fodder but dangerous in groups.
+				</div>
+			</div>
+			<div class="bat group">
+				<div class="icon"></div>
+				<div class="description">
+					<em><strong>Bat</strong></em>: Fast, flying rats with wings. Eww.
+				</div>
+			</div>
+		</div>
 	</div>
+
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
